@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" data-theme="dark">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Portal de Repaso - 3DS B (v0.4)</title>
+  <title>Portal de Repaso - 3DS B (v0.4 Pro)</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@400;600;700&family=Orbitron:wght@600;800&display=swap" rel="stylesheet">
   
   <style>
-    :root {
+    :root[data-theme="dark"] {
       --bg-color: #070a15;
       --panel-bg: #0f1630;
       --border-color: #222c55;
@@ -18,16 +18,27 @@
       --accent-purple: #a855f7;
       --text-main: #e8edfb;
       --text-muted: #9ba7ce;
-      --font-title: 'Orbitron', sans-serif;
-      --font-body: 'Exo 2', sans-serif;
+      --input-bg: #131c3f;
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+    :root[data-theme="light"] {
+      --bg-color: #f4f6fb;
+      --panel-bg: #ffffff;
+      --border-color: #cbd5e1;
+      --primary-cyan: #0284c7;
+      --accent-magenta: #db2777;
+      --accent-purple: #7c3aed;
+      --text-main: #1e293b;
+      --text-muted: #64748b;
+      --input-bg: #f1f5f9;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; transition: background 0.3s, color 0.3s; }
 
     body {
       background-color: var(--bg-color);
       color: var(--text-main);
-      font-family: var(--font-body);
+      font-family: 'Exo 2', sans-serif;
       line-height: 1.6;
     }
 
@@ -35,7 +46,7 @@
       position: sticky;
       top: 0;
       z-index: 10;
-      background: rgba(7, 10, 21, 0.95);
+      background: var(--panel-bg);
       backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--border-color);
       padding: 14px 24px;
@@ -50,11 +61,16 @@
     }
 
     .logo {
-      font-family: var(--font-title);
+      font-family: 'Orbitron', sans-serif;
       font-weight: 800;
       font-size: 16px;
       color: var(--primary-cyan);
-      text-shadow: 0 0 10px rgba(34, 211, 238, 0.4);
+    }
+
+    .nav-controls {
+      display: flex;
+      gap: 15px;
+      align-items: center;
     }
 
     .tag-version {
@@ -64,122 +80,162 @@
       font-size: 12px;
       padding: 3px 12px;
       border-radius: 999px;
-      font-family: var(--font-title);
+      font-family: 'Orbitron', sans-serif;
     }
 
+    .btn-theme {
+      background: var(--input-bg);
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+      padding: 6px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 11px;
+    }
+    .btn-theme:hover { border-color: var(--primary-cyan); }
+
     .hero {
-      padding: 50px 20px 30px;
+      padding: 40px 20px 20px;
       text-align: center;
       border-bottom: 1px solid var(--border-color);
-      background: radial-gradient(circle at top, rgba(168, 85, 247, 0.15), transparent 70%);
+      background: radial-gradient(circle at top, rgba(168, 85, 247, 0.12), transparent 70%);
     }
 
     .hero h1 {
-      font-family: var(--font-title);
-      font-size: clamp(28px, 4vw, 40px);
-      color: #fff;
+      font-family: 'Orbitron', sans-serif;
+      font-size: clamp(26px, 4vw, 38px);
+      color: var(--text-main);
       margin-bottom: 10px;
-      text-shadow: 0 0 15px rgba(240, 70, 210, 0.3);
     }
 
-    .hero-subtitle { color: var(--text-muted); font-size: 16px; }
+    .hero-subtitle { color: var(--text-muted); font-size: 15px; margin-bottom: 20px; }
 
-    .main-container {
-      max-width: 1200px;
-      margin: 40px auto;
+    /* Buscador y Filtros */
+    .filter-container {
+      max-width: 600px;
+      margin: 0 auto 30px;
       padding: 0 20px;
     }
 
-    /* Estilos de separador de profesor */
+    .search-input {
+      width: 100%;
+      background: var(--input-bg);
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+      padding: 12px 20px;
+      border-radius: 10px;
+      font-size: 15px;
+      outline: none;
+    }
+    .search-input:focus { border-color: var(--primary-cyan); box-shadow: 0 0 10px rgba(34, 211, 238, 0.2); }
+
+    .main-container {
+      max-width: 1200px;
+      margin: 20px auto;
+      padding: 0 20px;
+    }
+
     .profesor-section {
-      margin-bottom: 50px;
-      background: rgba(15, 22, 48, 0.4);
+      margin-bottom: 40px;
+      background: var(--panel-bg);
       border: 1px solid var(--border-color);
       border-radius: 16px;
-      padding: 30px;
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+      padding: 25px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
     }
 
     .profesor-header {
       display: flex;
       align-items: center;
       gap: 15px;
-      margin-bottom: 25px;
+      margin-bottom: 20px;
       border-bottom: 2px solid var(--border-color);
-      padding-bottom: 15px;
+      padding-bottom: 12px;
     }
 
     .profesor-badge {
       background: linear-gradient(135deg, var(--accent-purple), var(--accent-magenta));
       color: #fff;
-      font-family: var(--font-title);
-      font-size: 13px;
-      padding: 6px 14px;
-      border-radius: 8px;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 12px;
+      padding: 5px 12px;
+      border-radius: 6px;
       text-transform: uppercase;
-      letter-spacing: 1px;
     }
 
     .profesor-header h2 {
-      font-family: var(--font-title);
-      font-size: 22px;
-      color: #fff;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 20px;
+      color: var(--text-main);
     }
 
     .modulos-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
       gap: 20px;
     }
 
     .proy {
-      background: var(--panel-bg);
+      background: var(--bg-color);
       border: 1px solid var(--border-color);
       border-radius: 12px;
-      padding: 24px;
+      padding: 20px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      transition: all 0.3s ease;
+      position: relative;
+      transition: transform 0.2s, border-color 0.2s;
     }
 
     .proy:hover {
-      transform: translateY(-4px);
+      transform: translateY(-3px);
       border-color: var(--primary-cyan);
-      box-shadow: 0 4px 20px rgba(34, 211, 238, 0.15);
     }
 
     .proy h3 {
-      font-family: var(--font-title);
-      font-size: 15px;
-      color: #fff;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 14.5px;
+      color: var(--text-main);
       margin-bottom: 8px;
     }
 
     .proy .lema {
       color: var(--primary-cyan);
-      font-size: 13px;
-      margin-bottom: 10px;
+      font-size: 12.5px;
+      margin-bottom: 8px;
       font-weight: 600;
     }
 
-    .proy p { color: var(--text-muted); font-size: 14px; margin-bottom: 20px; }
+    .proy p { color: var(--text-muted); font-size: 13.5px; margin-bottom: 15px; }
+
+    .card-footer {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .checkbox-progreso {
+      width: 20px;
+      height: 20px;
+      accent-color: var(--primary-cyan);
+      cursor: pointer;
+    }
 
     .btn-sec {
       background: linear-gradient(135deg, #0891b2, var(--primary-cyan));
       color: #04121a;
-      font-family: var(--font-title);
-      font-size: 12px;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 11.5px;
       font-weight: 700;
       border: none;
       border-radius: 8px;
-      padding: 10px 16px;
+      padding: 9px 14px;
       cursor: pointer;
-      width: 100%;
+      flex: 1;
       text-align: center;
-      transition: filter 0.2s;
     }
-    .btn-sec:hover { filter: brightness(1.2); }
+    .btn-sec:hover { filter: brightness(1.15); }
 
     .modal {
       margin: auto;
@@ -187,46 +243,76 @@
       border-radius: 16px;
       background: var(--panel-bg);
       color: var(--text-main);
-      padding: 35px;
-      max-width: 650px;
+      padding: 30px;
+      max-width: 600px;
       width: 90%;
-      box-shadow: 0 10px 40px rgba(0,0,0,0.8);
+      box-shadow: 0 10px 40px rgba(0,0,0,0.5);
     }
-    .modal::backdrop { background: rgba(7, 10, 21, 0.8); backdrop-filter: blur(6px); }
+    .modal::backdrop { background: rgba(0, 0, 0, 0.7); backdrop-filter: blur(4px); }
     .modal-content { position: relative; }
     
     .btn-close {
       position: absolute;
-      top: -15px;
-      right: -5px;
+      top: -10px;
+      right: 0;
       background: transparent;
       border: none;
       color: var(--text-muted);
-      font-size: 30px;
+      font-size: 26px;
       cursor: pointer;
     }
     .btn-close:hover { color: var(--accent-magenta); }
+
+    /* Estilos Quiz Interactivo */
+    .quiz-box {
+      margin-top: 15px;
+      padding: 12px;
+      background: var(--bg-color);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+    }
+    .quiz-opcion {
+      display: block;
+      width: 100%;
+      padding: 8px 12px;
+      margin: 6px 0;
+      background: var(--input-bg);
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+      border-radius: 6px;
+      cursor: pointer;
+      text-align: left;
+      font-size: 13px;
+    }
+    .quiz-opcion:hover { border-color: var(--primary-cyan); }
+    .feedback { font-size: 13px; margin-top: 8px; font-weight: 600; }
   </style>
 </head>
 <body>
 
   <nav class="navbar">
     <div class="nav-container">
-      <span class="logo">PORTAL DE REPASO · 3DS B</span>
-      <span class="tag-version">Versión v0.4</span>
+      <span class="logo">PORTAL DE REPASO · PRO</span>
+      <div class="nav-controls">
+        <button class="btn-theme" onclick="alternarTema()">🌓 Modo</button>
+        <span class="tag-version">Nivel 2 Pro</span>
+      </div>
     </div>
   </nav>
 
   <header class="hero">
     <div class="hero-content">
-      <h1>Portal Académico Integral</h1>
-      <p class="hero-subtitle">Módulos técnicos y proyectos correspondientes al año lectivo.</p>
+      <h1>Portal Académico Interactivo</h1>
+      <p class="hero-subtitle">Gestión de módulos con buscador, progreso guardado, quiz y modo claro/oscuro.</p>
+    </div>
+    
+    <div class="filter-container">
+      <input type="text" id="buscador" class="search-input" placeholder="🔍 Buscar módulo, herramienta o profesor..." onkeyup="filtrarModulos()">
     </div>
   </header>
 
   <main class="main-container">
     
-    <!-- SECCIÓN PROFESOR JAVIER -->
     <section class="profesor-section">
       <div class="profesor-header">
         <span class="profesor-badge">Docente</span>
@@ -235,7 +321,6 @@
       <div id="grid-javier" class="modulos-grid"></div>
     </section>
 
-    <!-- SECCIÓN PROFESOR ARCIDES CANALES -->
     <section class="profesor-section">
       <div class="profesor-header">
         <span class="profesor-badge" style="background: linear-gradient(135deg, #0891b2, #22d3ee); color:#04121a;">Docente</span>
@@ -255,125 +340,162 @@
 
   <script>
     const modulosData = [
-      // MÓDULOS PROFESOR JAVIER
       {
         id: "mod-javier-0",
         docente: "Prof. Javier",
-        titulo: "Módulo 3.0 Orientación de estudiantes al proceso educativo",
-        resumen: "Inducción al tercer año, creación de equipos de trabajo y organización del portafolio estudiantil.",
-        instrumentos: ["Guía de inducción", "Rúbrica de equipos de trabajo"],
-        programas: ["Plataforma Educativa", "Herramientas de colaboración"],
-        herramientas: ["Portafolio digital", "Códigos QR"],
-        recursos: [{ nombre: "Generalidades del Módulo 3.0", url: "https://classroom.google.com/" }],
-        evidencias: [{ titulo: "Creación de equipo de trabajo", url: "https://github.com/" }]
+        titulo: "Módulo 3.0 Orientación de estudiantes",
+        resumen: "Inducción al tercer año, creación de equipos de trabajo y portafolio estudiantil.",
+        instrumentos: ["Guía de inducción"],
+        programas: ["Plataforma Educativa"],
+        herramientas: ["Portafolio digital"],
+        recursos: [{ nombre: "Generalidades", url: "https://classroom.google.com/" }],
+        evidencias: [{ titulo: "Creación de equipo", url: "https://github.com/" }],
+        quiz: {
+          pregunta: "¿Cuál es el propósito del portafolio en este módulo?",
+          opciones: ["Organizar evidencias y actividades", "Jugar en línea", "Diseñar bases de datos"],
+          correcta: 0,
+          explicacion: "¡Correcto! El portafolio sirve para organizar y recopilar tus evidencias académicas."
+        }
       },
       {
         id: "mod-javier-2",
         docente: "Prof. Javier",
-        titulo: "Módulo 3.2 Mantenimiento y aseguramiento de la operación del sistemas informáticos",
-        resumen: "Monitoreo, registro de mantenimiento, creación de dashboards operativos, ejecución y planes de contingencia técnica.",
-        instrumentos: ["Guías de monitoreo", "Rúbricas de planes de contingencia"],
-        programas: ["Visual Studio", "Herramientas de monitoreo de red"],
-        herramientas: ["Dashboards", "Bitácoras de mantenimiento"],
-        recursos: [{ nombre: "Documentación de Mantenimiento", url: "https://learn.microsoft.com/" }],
-        evidencias: [
-          { titulo: "Semana 3 Monitoreo y Registro", url: "https://github.com/" },
-          { titulo: "Semana 4 Creación de Dashboard", url: "https://github.com/" }
-        ]
+        titulo: "Módulo 3.2 Mantenimiento de sistemas informáticos",
+        resumen: "Monitoreo, registro de mantenimiento, creación de dashboards operativos y planes de contingencia.",
+        instrumentos: ["Guías de monitoreo"],
+        programas: ["Visual Studio"],
+        herramientas: ["Dashboards", "Bitácoras"],
+        recursos: [{ nombre: "Docs Microsoft", url: "https://learn.microsoft.com/" }],
+        evidencias: [{ titulo: "Monitoreo y Registro", url: "https://github.com/" }],
+        quiz: {
+          pregunta: "¿Qué herramienta se destaca para visualizar métricas operativas?",
+          opciones: ["Dashboard", "Calculadora simple", "Bloc de notas"],
+          correcta: 0,
+          explicacion: "¡Exacto! Los dashboards permiten visualizar datos y métricas en tiempo real."
+        }
       },
       {
         id: "mod-javier-3",
         docente: "Prof. Javier",
         titulo: "Módulo 3.3 Administración de Bases de Datos",
-        resumen: "Gestión avanzada de bases de datos, optimización de consultas, prácticas y actividades de recuperación técnica.",
-        instrumentos: ["Rúbrica de administración SQL", "Pruebas prácticas de BD"],
-        programas: ["SQL Server Management Studio", "Power BI"],
-        herramientas: ["SQL", "Power BI Dashboards"],
-        recursos: [{ nombre: "Recursos de Power BI y SQL", url: "https://learn.microsoft.com/" }],
-        evidencias: [
-          { titulo: "Actividad Power BI", url: "https://github.com/" },
-          { titulo: "Ejecutar Final más Dashboard", url: "https://github.com/" }
-        ]
+        resumen: "Gestión avanzada de bases de datos, optimización de consultas y Power BI.",
+        instrumentos: ["Rúbrica SQL"],
+        programas: ["SQL Server", "Power BI"],
+        herramientas: ["SQL"],
+        recursos: [{ nombre: "Power BI Docs", url: "https://learn.microsoft.com/" }],
+        evidencias: [{ titulo: "Actividad Power BI", url: "https://github.com/" }],
+        quiz: {
+          pregunta: "¿Qué lenguaje se utiliza principalmente para consultar bases de datos relacionales?",
+          opciones: ["SQL", "HTML", "CSS"],
+          correcta: 0,
+          explicacion: "¡Muy bien! SQL es el lenguaje estándar para consultas relacionales."
+        }
       },
       {
         id: "mod-javier-4",
         docente: "Prof. Javier",
-        titulo: "Módulo 3.4 Elaboración de documentación de Sistemas informáticos",
-        resumen: "Estructuración de fases de desarrollo, arquitectura de software, guías de Python individuales y documentación técnica final.",
-        instrumentos: ["Rúbrica de documentación técnica", "Evaluación de guías de desarrollo"],
-        programas: ["Python IDLE / VS Code", "Editores de documentación"],
-        herramientas: ["Python", "Markdown / Plantillas de reporte"],
-        recursos: [{ nombre: "Guía oficial de Python", url: "https://www.python.org/" }],
-        evidencias: [
-          { titulo: "Guía Python Individual", url: "https://github.com/" },
-          { titulo: "Fase 2-3 Arquitectura del Software", url: "https://github.com/" },
-          { titulo: "Fase 5 y Documentos Finales", url: "https://github.com/" }
-        ]
+        titulo: "Módulo 3.4 Elaboración de documentación",
+        resumen: "Fases de desarrollo, arquitectura de software y guías de Python individuales.",
+        instrumentos: ["Rúbrica técnica"],
+        programas: ["VS Code"],
+        herramientas: ["Python"],
+        recursos: [{ nombre: "Python Docs", url: "https://www.python.org/" }],
+        evidencias: [{ titulo: "Guía Python Individual", url: "https://github.com/" }],
+        quiz: {
+          pregunta: "¿Qué lenguaje se utiliza en las guías individuales de este módulo?",
+          opciones: ["Python", "Java", "C++"],
+          correcta: 0,
+          explicacion: "¡Correcto! Se trabaja fuertemente con scripts y automatización en Python."
+        }
       },
       {
         id: "mod-javier-8",
         docente: "Prof. Javier",
-        titulo: "Módulo 3.8 Proyecto innovador de Desarrollo de Software",
-        resumen: "Desarrollo y entrega de proyectos innovadores, avances de software, exposiciones y prácticas orientadas a soluciones informáticas reales.",
-        instrumentos: ["Rúbrica de proyecto innovador", "Evaluación de exposiciones y avances"],
-        programas: ["Visual Studio", "GitHub", "Entornos de desarrollo"],
-        herramientas: ["C# / Python / Web", "Control de versiones Git"],
-        recursos: [{ nombre: "Guía de proyectos innovadores", url: "https://github.com/" }],
-        evidencias: [
-          { titulo: "Avance 1 Proyecto Innovador (10%)", url: "https://github.com/" },
-          { titulo: "Segunda Entrega Avance Proyecto (15%)", url: "https://github.com/" },
-          { titulo: "Jueves Entrega Final", url: "https://github.com/" }
-        ]
+        titulo: "Módulo 3.8 Proyecto innovador de Desarrollo",
+        resumen: "Desarrollo y entrega de proyectos innovadores, avances de software y exposiciones.",
+        instrumentos: ["Rúbrica de proyecto"],
+        programas: ["Visual Studio", "GitHub"],
+        herramientas: ["Git", "C#"],
+        recursos: [{ nombre: "Guía de proyectos", url: "https://github.com/" }],
+        evidencias: [{ titulo: "Avance 1 Proyecto", url: "https://github.com/" }],
+        quiz: {
+          pregunta: "¿Qué sistema de control de versiones se emplea para los proyectos?",
+          opciones: ["Git / GitHub", "Excel", "Paint"],
+          correcta: 0,
+          explicacion: "¡Exacto! Git y GitHub son esenciales para la colaboración y respaldo."
+        }
       },
-
-      // MÓDULOS PROFESOR ARCIDES CANALES
       {
         id: "mod-arcides-1",
         docente: "Prof. Arcides Canales",
-        titulo: "BTVDS 3.1 Desarrollo de aplicaciones de software para la solución de problemas",
-        resumen: "Enfoque en Programación Orientada a Objetos (POO) avanzada, herencia, polimorfismo, bases de datos y ASP.NET Razor.",
-        instrumentos: ["Guías de práctica POO", "Rúbricas de BD"],
+        titulo: "BTVDS 3.1 Desarrollo de aplicaciones de software",
+        resumen: "Programación Orientada a Objetos (POO) avanzada, herencia, polimorfismo y ASP.NET Razor.",
+        instrumentos: ["Guías POO"],
         programas: ["Visual Studio", "SQL Server"],
-        herramientas: ["C#", "ASP.NET Razor", "SQL"],
-        recursos: [{ nombre: "Documentación oficial C#", url: "https://learn.microsoft.com/" }],
-        evidencias: [{ titulo: "Práctica 02 POO Herencia y Polimorfismo", url: "https://github.com/" }]
+        herramientas: ["C#", "ASP.NET"],
+        recursos: [{ nombre: "C# Learn", url: "https://learn.microsoft.com/" }],
+        evidencias: [{ titulo: "Práctica 02 POO", url: "https://github.com/" }],
+        quiz: {
+          pregunta: "¿Qué pilar de POO permite heredar características de otra clase?",
+          opciones: ["Herencia", "Bucle", "Variable"],
+          correcta: 0,
+          explicacion: "¡Correcto! La herencia reutiliza código entre clases."
+        }
       },
       {
         id: "mod-arcides-2",
         docente: "Prof. Arcides Canales",
-        titulo: "Modulo 2 Desarrollo de componentes para dispositivos móviles",
-        resumen: "Desarrollo de aplicaciones multiplataforma utilizando el framework .NET MAUI y componentes visuales móviles.",
-        instrumentos: ["Rúbrica MAUI", "Lista de cotejo"],
-        programas: ["Visual Studio", "Emulador Android"],
-        herramientas: ["C#", ".NET MAUI", "XAML"],
-        recursos: [{ nombre: "Documentación oficial .NET MAUI", url: "https://learn.microsoft.com/" }],
-        evidencias: [{ titulo: "Práctica 9 Net Maui", url: "https://github.com/" }]
+        titulo: "Modulo 2 Desarrollo dispositivos móviles",
+        resumen: "Aplicaciones multiplataforma utilizando el framework .NET MAUI y componentes móviles.",
+        instrumentos: ["Rúbrica MAUI"],
+        programas: ["Visual Studio"],
+        herramientas: [".NET MAUI", "XAML"],
+        recursos: [{ nombre: "MAUI Docs", url: "https://learn.microsoft.com/" }],
+        evidencias: [{ titulo: "Práctica 9 Net Maui", url: "https://github.com/" }],
+        quiz: {
+          pregunta: "¿Qué framework se utiliza para desarrollo multiplataforma en C#?",
+          opciones: [".NET MAUI", "Django", "Spring"],
+          correcta: 0,
+          explicacion: "¡Excelente! .NET MAUI permite crear apps móviles y de escritorio."
+        }
       },
       {
         id: "mod-arcides-3",
         docente: "Prof. Arcides Canales",
-        titulo: "Modulo 3 Conversación de ingles sobre mantenimiento de sistemas informáticos",
-        resumen: "Implementación de metodologías ágiles Scrum y bases de datos conectadas con asistencia de IA.",
-        instrumentos: ["Guía Scrum", "Rúbrica CRUD-IA"],
-        programas: ["VS Code", "Visual Studio"],
-        herramientas: ["Scrum Framework", "Bases de datos relacionales"],
-        recursos: [{ nombre: "Scrum Guide oficial", url: "https://scrumguides.org/" }],
-        evidencias: [{ titulo: "Practica 11 Base de datos CRUD-IA", url: "https://github.com/" }]
+        titulo: "Modulo 3 Conversación de ingles / Scrum",
+        resumen: "Metodologías ágiles Scrum y bases de datos conectadas con IA.",
+        instrumentos: ["Guía Scrum"],
+        programas: ["VS Code"],
+        herramientas: ["Scrum"],
+        recursos: [{ nombre: "Scrum Guide", url: "https://scrumguides.org/" }],
+        evidencias: [{ titulo: "Práctica Scrum", url: "https://github.com/" }],
+        quiz: {
+          pregunta: "¿Cómo se llama el evento diario de sincronización en Scrum?",
+          opciones: ["Daily Standup", "Sprint Final", "Retiro"],
+          correcta: 0,
+          explicacion: "¡Correcto! El Daily Standup mantiene al equipo alineado todos los días."
+        }
       },
       {
         id: "mod-arcides-4",
         docente: "Prof. Arcides Canales",
-        titulo: "Modulo 4 Puesta en marcha de la empresa en asociatividad cooperativa",
-        resumen: "Gestión empresarial, tiendas en línea con PrestaShop, prototipos con Arduino y aplicaciones WinForms y .NET MAUI.",
-        instrumentos: ["Rúbrica PrestaShop", "Evaluación Arduino"],
-        programas: ["XAMPP", "Visual Studio", "Arduino IDE"],
-        herramientas: ["PrestaShop", "Arduino", "WinForms", ".NET MAUI"],
-        recursos: [{ nombre: "PrestaShop DevDocs", url: "https://devdocs.prestashop-project.org/" }],
-        evidencias: [{ titulo: "Proyecto PrestaShop Individual", url: "https://github.com/" }]
+        titulo: "Modulo 4 Puesta en marcha de empresa cooperativa",
+        resumen: "Tiendas online con PrestaShop, prototipos con Arduino y aplicaciones WinForms.",
+        instrumentos: ["Rúbrica PrestaShop"],
+        programas: ["XAMPP", "Arduino IDE"],
+        herramientas: ["PrestaShop", "Arduino"],
+        recursos: [{ nombre: "PrestaShop Docs", url: "https://devdocs.prestashop-project.org/" }],
+        evidencias: [{ titulo: "Proyecto PrestaShop", url: "https://github.com/" }],
+        quiz: {
+          pregunta: "¿Qué plataforma open-source se utilizó para comercio electrónico?",
+          opciones: ["PrestaShop", "Word", "Photoshop"],
+          correcta: 0,
+          explicacion: "¡Exacto! PrestaShop es una robusta solución de e-commerce."
+        }
       }
     ];
 
-    function cargarModulos() {
+    function cargarModulos(filtro = "") {
       const gridJavier = document.getElementById("grid-javier");
       const gridArcides = document.getElementById("grid-arcides");
       
@@ -382,7 +504,20 @@
       gridJavier.innerHTML = "";
       gridArcides.innerHTML = "";
 
+      const textoFiltro = filtro.toLowerCase();
+
       modulosData.forEach(modulo => {
+        // Filtrado en tiempo real
+        const coincide = modulo.titulo.toLowerCase().includes(textoFiltro) ||
+                         modulo.docente.toLowerCase().includes(textoFiltro) ||
+                         modulo.resumen.toLowerCase().includes(textoFiltro) ||
+                         modulo.herramientas.some(h => h.toLowerCase().includes(textoFiltro));
+
+        if (!coincide) return;
+
+        // Recuperar progreso guardado en LocalStorage
+        const guardado = localStorage.getItem(modulo.id) === "true";
+
         const card = document.createElement("article");
         card.className = "proy";
         card.innerHTML = `
@@ -391,7 +526,10 @@
             <p class="lema"><b>Docente:</b> ${modulo.docente}</p>
             <p>${modulo.resumen}</p>
           </div>
-          <button onclick="verFicha('${modulo.id}')" class="btn-sec">Ver Ficha Completa</button>
+          <div class="card-footer">
+            <input type="checkbox" class="checkbox-progreso" ${guardado ? "checked" : ""} onchange="guardarProgreso('${modulo.id}', this.checked)" title="Marcar como repasado">
+            <button onclick="verFicha('${modulo.id}')" class="btn-sec">Ver Ficha & Quiz</button>
+          </div>
         `;
 
         if (modulo.docente === "Prof. Javier") {
@@ -402,45 +540,78 @@
       });
     }
 
+    function filtrarModulos() {
+      const query = document.getElementById("buscador").value;
+      cargarModulos(query);
+    }
+
+    function guardarProgreso(id, estado) {
+      localStorage.setItem(id, estado);
+    }
+
     function verFicha(id) {
       const modulo = modulosData.find(m => m.id === id);
       if (!modulo) return;
 
       const modalBody = document.getElementById("modal-body");
       modalBody.innerHTML = `
-        <h2 style="font-family: var(--font-title); color: var(--primary-cyan); font-size:17px; margin-bottom: 6px;">${modulo.titulo}</h2>
-        <p style="font-size:14px; margin-bottom: 10px;"><b>Docente:</b> ${modulo.docente}</p>
-        <hr style="border: 0; border-top: 1px solid var(--border-color); margin: 12px 0;">
-        <p style="margin-bottom: 12px; font-size:14px; color: var(--text-main);">${modulo.resumen}</p>
+        <h2 style="font-family: 'Orbitron', sans-serif; color: var(--primary-cyan); font-size:16px; margin-bottom: 6px;">${modulo.titulo}</h2>
+        <p style="font-size:13.5px; margin-bottom: 8px;"><b>Docente:</b> ${modulo.docente}</p>
+        <hr style="border: 0; border-top: 1px solid var(--border-color); margin: 10px 0;">
+        <p style="margin-bottom: 10px; font-size:13.5px;">${modulo.resumen}</p>
 
-        <h4 style="color: var(--accent-magenta); font-size:13px; margin-top: 8px;">Instrumentos</h4>
-        <p style="font-size:13.5px; color:var(--text-muted);">${modulo.instrumentos.join(", ")}</p>
+        <h4 style="color: var(--accent-magenta); font-size:12.5px; margin-top: 6px;">Herramientas</h4>
+        <p style="font-size:13px; color:var(--text-muted);">${modulo.herramientas.join(", ")}</p>
 
-        <h4 style="color: var(--accent-magenta); font-size:13px; margin-top: 8px;">Programas</h4>
-        <p style="font-size:13.5px; color:var(--text-muted);">${modulo.programas.join(", ")}</p>
-
-        <h4 style="color: var(--accent-magenta); font-size:13px; margin-top: 8px;">Herramientas</h4>
-        <p style="font-size:13.5px; color:var(--text-muted);">${modulo.herramientas.join(", ")}</p>
-
-        <h4 style="color: var(--accent-magenta); font-size:13px; margin-top: 8px;">Recursos</h4>
-        <ul style="padding-left:18px; font-size:13.5px;">
-          ${modulo.recursos.map(r => `<li><a href="${r.url}" target="_blank" style="color:var(--primary-cyan);">${r.nombre}</a></li>`).join('')}
-        </ul>
-
-        <h4 style="color: var(--accent-magenta); font-size:13px; margin-top: 8px;">Evidencias</h4>
-        <ul style="padding-left:18px; font-size:13.5px;">
+        <h4 style="color: var(--accent-magenta); font-size:12.5px; margin-top: 6px;">Evidencias</h4>
+        <ul style="padding-left:18px; font-size:13px;">
           ${modulo.evidencias.map(e => `<li><a href="${e.url}" target="_blank" style="color:var(--primary-cyan);">${e.titulo}</a></li>`).join('')}
         </ul>
+
+        <div class="quiz-box">
+          <h4 style="color: var(--primary-cyan); font-size:13px; margin-bottom: 6px;">🧠 Quiz Interactivo</h4>
+          <p style="font-size:13px; font-weight:600; margin-bottom: 8px;">${modulo.quiz.pregunta}</p>
+          <div id="quiz-opciones-${modulo.id}">
+            ${modulo.quiz.opciones.map((op, idx) => `
+              <button class="quiz-opcion" onclick="verificarRespuesta('${modulo.id}', ${idx}, ${modulo.quiz.correcta}, '${modulo.quiz.explicacion}')">${op}</button>
+            `).join('')}
+          </div>
+          <div id="quiz-feedback-${modulo.id}" class="feedback"></div>
+        </div>
       `;
 
       document.getElementById("modal-ficha").showModal();
+    }
+
+    function verificarRespuesta(id, seleccionada, correcta, explicacion) {
+      const feedbackDiv = document.getElementById(`quiz-feedback-${id}`);
+      if (seleccionada === correcta) {
+        feedbackDiv.style.color = "#22d3ee";
+        feedbackDiv.innerHTML = `✅ ${explicacion}`;
+      } else {
+        feedbackDiv.style.color = "#f046d2";
+        feedbackDiv.innerHTML = `❌ Respuesta incorrecta. ¡Inténtalo de nuevo!`;
+      }
     }
 
     function cerrarFicha() {
       document.getElementById("modal-ficha").close();
     }
 
-    document.addEventListener("DOMContentLoaded", cargarModulos);
+    function alternarTema() {
+      const html = document.documentElement;
+      const actual = html.getAttribute("data-theme");
+      const nuevo = actual === "dark" ? "light" : "dark";
+      html.setAttribute("data-theme", nuevo);
+      localStorage.setItem("theme", nuevo);
+    }
+
+    // Cargar preferencia de tema guardada al iniciar
+    document.addEventListener("DOMContentLoaded", () => {
+      const temaGuardado = localStorage.getItem("theme") || "dark";
+      document.documentElement.setAttribute("data-theme", temaGuardado);
+      cargarModulos();
+    });
   </script>
 </body>
 </html>
