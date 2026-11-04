@@ -15,6 +15,7 @@
       --border-color: #222c55;
       --primary-cyan: #22d3ee;
       --accent-magenta: #f046d2;
+      --accent-purple: #a855f7;
       --text-main: #e8edfb;
       --text-muted: #9ba7ce;
       --font-title: 'Orbitron', sans-serif;
@@ -34,14 +35,14 @@
       position: sticky;
       top: 0;
       z-index: 10;
-      background: rgba(7, 10, 21, 0.9);
-      backdrop-filter: blur(10px);
+      background: rgba(7, 10, 21, 0.95);
+      backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--border-color);
       padding: 14px 24px;
     }
 
     .nav-container {
-      max-width: 1080px;
+      max-width: 1200px;
       margin: 0 auto;
       display: flex;
       justify-content: space-between;
@@ -53,6 +54,7 @@
       font-weight: 800;
       font-size: 16px;
       color: var(--primary-cyan);
+      text-shadow: 0 0 10px rgba(34, 211, 238, 0.4);
     }
 
     .tag-version {
@@ -60,43 +62,73 @@
       border: 1px solid var(--primary-cyan);
       color: var(--primary-cyan);
       font-size: 12px;
-      padding: 2px 10px;
+      padding: 3px 12px;
       border-radius: 999px;
+      font-family: var(--font-title);
     }
 
     .hero {
       padding: 50px 20px 30px;
       text-align: center;
       border-bottom: 1px solid var(--border-color);
-      background: radial-gradient(circle at top, rgba(240, 70, 210, 0.12), transparent 70%);
+      background: radial-gradient(circle at top, rgba(168, 85, 247, 0.15), transparent 70%);
     }
 
     .hero h1 {
       font-family: var(--font-title);
-      font-size: clamp(26px, 4vw, 38px);
+      font-size: clamp(28px, 4vw, 40px);
       color: #fff;
-      margin-bottom: 8px;
+      margin-bottom: 10px;
+      text-shadow: 0 0 15px rgba(240, 70, 210, 0.3);
     }
 
     .hero-subtitle { color: var(--text-muted); font-size: 16px; }
 
     .main-container {
-      max-width: 1080px;
-      margin: 30px auto;
+      max-width: 1200px;
+      margin: 40px auto;
       padding: 0 20px;
     }
 
-    .section-title {
+    /* Estilos de separador de profesor */
+    .profesor-section {
+      margin-bottom: 50px;
+      background: rgba(15, 22, 48, 0.4);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 30px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    }
+
+    .profesor-header {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 25px;
+      border-bottom: 2px solid var(--border-color);
+      padding-bottom: 15px;
+    }
+
+    .profesor-badge {
+      background: linear-gradient(135deg, var(--accent-purple), var(--accent-magenta));
+      color: #fff;
       font-family: var(--font-title);
-      font-size: 20px;
-      margin-bottom: 20px;
-      border-left: 4px solid var(--primary-cyan);
-      padding-left: 12px;
+      font-size: 13px;
+      padding: 6px 14px;
+      border-radius: 8px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .profesor-header h2 {
+      font-family: var(--font-title);
+      font-size: 22px;
+      color: #fff;
     }
 
     .modulos-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
       gap: 20px;
     }
 
@@ -108,17 +140,18 @@
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      transition: transform 0.2s, border-color 0.2s;
+      transition: all 0.3s ease;
     }
 
     .proy:hover {
-      transform: translateY(-3px);
+      transform: translateY(-4px);
       border-color: var(--primary-cyan);
+      box-shadow: 0 4px 20px rgba(34, 211, 238, 0.15);
     }
 
     .proy h3 {
       font-family: var(--font-title);
-      font-size: 16px;
+      font-size: 15px;
       color: #fff;
       margin-bottom: 8px;
     }
@@ -127,44 +160,49 @@
       color: var(--primary-cyan);
       font-size: 13px;
       margin-bottom: 10px;
+      font-weight: 600;
     }
 
-    .proy p { color: var(--text-muted); font-size: 14.5px; margin-bottom: 16px; }
+    .proy p { color: var(--text-muted); font-size: 14px; margin-bottom: 20px; }
 
     .btn-sec {
       background: linear-gradient(135deg, #0891b2, var(--primary-cyan));
       color: #04121a;
+      font-family: var(--font-title);
+      font-size: 12px;
       font-weight: 700;
       border: none;
       border-radius: 8px;
-      padding: 9px 16px;
+      padding: 10px 16px;
       cursor: pointer;
       width: 100%;
       text-align: center;
+      transition: filter 0.2s;
     }
-    .btn-sec:hover { filter: brightness(1.1); }
+    .btn-sec:hover { filter: brightness(1.2); }
 
     .modal {
       margin: auto;
       border: 1px solid var(--border-color);
-      border-radius: 14px;
+      border-radius: 16px;
       background: var(--panel-bg);
       color: var(--text-main);
-      padding: 30px;
+      padding: 35px;
       max-width: 650px;
       width: 90%;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.8);
     }
-    .modal::backdrop { background: rgba(0, 0, 0, 0.7); backdrop-filter: blur(4px); }
+    .modal::backdrop { background: rgba(7, 10, 21, 0.8); backdrop-filter: blur(6px); }
     .modal-content { position: relative; }
     
     .btn-close {
       position: absolute;
-      top: -10px;
-      right: 0;
+      top: -15px;
+      right: -5px;
       background: transparent;
       border: none;
       color: var(--text-muted);
-      font-size: 28px;
+      font-size: 30px;
       cursor: pointer;
     }
     .btn-close:hover { color: var(--accent-magenta); }
@@ -181,14 +219,31 @@
 
   <header class="hero">
     <div class="hero-content">
-      <h1>Portal del Año (Prof. Arcides Canales)</h1>
-      <p class="hero-subtitle">Módulos técnicos y proyectos desarrollados durante el año lectivo.</p>
+      <h1>Portal Académico Integral</h1>
+      <p class="hero-subtitle">Módulos técnicos y proyectos correspondientes al año lectivo.</p>
     </div>
   </header>
 
   <main class="main-container">
-    <h2 class="section-title">Módulos Asignados</h2>
-    <div id="contenedor-modulos" class="modulos-grid"></div>
+    
+    <!-- SECCIÓN PROFESOR JAVIER -->
+    <section class="profesor-section">
+      <div class="profesor-header">
+        <span class="profesor-badge">Docente</span>
+        <h2>Prof. Javier</h2>
+      </div>
+      <div id="grid-javier" class="modulos-grid"></div>
+    </section>
+
+    <!-- SECCIÓN PROFESOR ARCIDES CANALES -->
+    <section class="profesor-section">
+      <div class="profesor-header">
+        <span class="profesor-badge" style="background: linear-gradient(135deg, #0891b2, #22d3ee); color:#04121a;">Docente</span>
+        <h2>Prof. Arcides Canales</h2>
+      </div>
+      <div id="grid-arcides" class="modulos-grid"></div>
+    </section>
+
   </main>
 
   <dialog id="modal-ficha" class="modal">
@@ -200,77 +255,132 @@
 
   <script>
     const modulosData = [
+      // MÓDULOS PROFESOR JAVIER
+      {
+        id: "mod-javier-0",
+        docente: "Prof. Javier",
+        titulo: "Módulo 3.0 Orientación de estudiantes al proceso educativo",
+        resumen: "Inducción al tercer año, creación de equipos de trabajo y organización del portafolio estudiantil.",
+        instrumentos: ["Guía de inducción", "Rúbrica de equipos de trabajo"],
+        programas: ["Plataforma Educativa", "Herramientas de colaboración"],
+        herramientas: ["Portafolio digital", "Códigos QR"],
+        recursos: [{ nombre: "Generalidades del Módulo 3.0", url: "https://classroom.google.com/" }],
+        evidencias: [{ titulo: "Creación de equipo de trabajo", url: "https://github.com/" }]
+      },
+      {
+        id: "mod-javier-2",
+        docente: "Prof. Javier",
+        titulo: "Módulo 3.2 Mantenimiento y aseguramiento de la operación del sistemas informáticos",
+        resumen: "Monitoreo, registro de mantenimiento, creación de dashboards operativos, ejecución y planes de contingencia técnica.",
+        instrumentos: ["Guías de monitoreo", "Rúbricas de planes de contingencia"],
+        programas: ["Visual Studio", "Herramientas de monitoreo de red"],
+        herramientas: ["Dashboards", "Bitácoras de mantenimiento"],
+        recursos: [{ nombre: "Documentación de Mantenimiento", url: "https://learn.microsoft.com/" }],
+        evidencias: [
+          { titulo: "Semana 3 Monitoreo y Registro", url: "https://github.com/" },
+          { titulo: "Semana 4 Creación de Dashboard", url: "https://github.com/" }
+        ]
+      },
+      {
+        id: "mod-javier-3",
+        docente: "Prof. Javier",
+        titulo: "Módulo 3.3 Administración de Bases de Datos",
+        resumen: "Gestión avanzada de bases de datos, optimización de consultas, prácticas y actividades de recuperación técnica.",
+        instrumentos: ["Rúbrica de administración SQL", "Pruebas prácticas de BD"],
+        programas: ["SQL Server Management Studio", "Power BI"],
+        herramientas: ["SQL", "Power BI Dashboards"],
+        recursos: [{ nombre: "Recursos de Power BI y SQL", url: "https://learn.microsoft.com/" }],
+        evidencias: [
+          { titulo: "Actividad Power BI", url: "https://github.com/" },
+          { titulo: "Ejecutar Final más Dashboard", url: "https://github.com/" }
+        ]
+      },
+      {
+        id: "mod-javier-4",
+        docente: "Prof. Javier",
+        titulo: "Módulo 3.4 Elaboración de documentación de Sistemas informáticos",
+        resumen: "Estructuración de fases de desarrollo, arquitectura de software, guías de Python individuales y documentación técnica final.",
+        instrumentos: ["Rúbrica de documentación técnica", "Evaluación de guías de desarrollo"],
+        programas: ["Python IDLE / VS Code", "Editores de documentación"],
+        herramientas: ["Python", "Markdown / Plantillas de reporte"],
+        recursos: [{ nombre: "Guía oficial de Python", url: "https://www.python.org/" }],
+        evidencias: [
+          { titulo: "Guía Python Individual", url: "https://github.com/" },
+          { titulo: "Fase 2-3 Arquitectura del Software", url: "https://github.com/" },
+          { titulo: "Fase 5 y Documentos Finales", url: "https://github.com/" }
+        ]
+      },
+      {
+        id: "mod-javier-8",
+        docente: "Prof. Javier",
+        titulo: "Módulo 3.8 Proyecto innovador de Desarrollo de Software",
+        resumen: "Desarrollo y entrega de proyectos innovadores, avances de software, exposiciones y prácticas orientadas a soluciones informáticas reales.",
+        instrumentos: ["Rúbrica de proyecto innovador", "Evaluación de exposiciones y avances"],
+        programas: ["Visual Studio", "GitHub", "Entornos de desarrollo"],
+        herramientas: ["C# / Python / Web", "Control de versiones Git"],
+        recursos: [{ nombre: "Guía de proyectos innovadores", url: "https://github.com/" }],
+        evidencias: [
+          { titulo: "Avance 1 Proyecto Innovador (10%)", url: "https://github.com/" },
+          { titulo: "Segunda Entrega Avance Proyecto (15%)", url: "https://github.com/" },
+          { titulo: "Jueves Entrega Final", url: "https://github.com/" }
+        ]
+      },
+
+      // MÓDULOS PROFESOR ARCIDES CANALES
       {
         id: "mod-arcides-1",
+        docente: "Prof. Arcides Canales",
         titulo: "BTVDS 3.1 Desarrollo de aplicaciones de software para la solución de problemas",
-        docente: "Arcides Canales",
-        resumen: "Enfoque en Programación Orientada a Objetos (POO) avanzada, herencia, polimorfismo, creación de bases de datos, conexión y prácticas con ASP.NET Razor.",
-        instrumentos: ["Guías de práctica de POO", "Rúbricas de evaluación de bases de datos", "Pruebas cortas de acceso a datos"],
-        programas: ["Visual Studio", "SQL Server Management Studio", "SQL Server"],
-        herramientas: ["C#", ".NET Framework / .NET Core", "ASP.NET Razor", "SQL"],
-        recursos: [
-          { nombre: "Documentación oficial de C# (Microsoft Learn)", url: "https://learn.microsoft.com/es-es/dotnet/csharp/" },
-          { nombre: "Guías de SQL Server", url: "https://learn.microsoft.com/es-es/sql/sql-server/" }
-        ],
-        evidencias: [
-          { titulo: "Práctica 02 POO Herencia y Polimorfismo", url: "https://github.com/" },
-          { titulo: "Práctica 05 Code First ASP Razor", url: "https://github.com/" }
-        ]
+        resumen: "Enfoque en Programación Orientada a Objetos (POO) avanzada, herencia, polimorfismo, bases de datos y ASP.NET Razor.",
+        instrumentos: ["Guías de práctica POO", "Rúbricas de BD"],
+        programas: ["Visual Studio", "SQL Server"],
+        herramientas: ["C#", "ASP.NET Razor", "SQL"],
+        recursos: [{ nombre: "Documentación oficial C#", url: "https://learn.microsoft.com/" }],
+        evidencias: [{ titulo: "Práctica 02 POO Herencia y Polimorfismo", url: "https://github.com/" }]
       },
       {
         id: "mod-arcides-2",
+        docente: "Prof. Arcides Canales",
         titulo: "Modulo 2 Desarrollo de componentes para dispositivos móviles",
-        docente: "Arcides Canales",
-        resumen: "Desarrollo de aplicaciones multiplataforma utilizando el framework .NET MAUI, estructurando componentes visuales y lógicas adaptadas a entornos móviles.",
-        instrumentos: ["Rúbrica de prácticas de .NET MAUI", "Lista de cotejo para interfaces móviles", "Autoevaluación de prácticas"],
-        programas: ["Visual Studio", "Emulador de Android / Dispositivo físico"],
+        resumen: "Desarrollo de aplicaciones multiplataforma utilizando el framework .NET MAUI y componentes visuales móviles.",
+        instrumentos: ["Rúbrica MAUI", "Lista de cotejo"],
+        programas: ["Visual Studio", "Emulador Android"],
         herramientas: ["C#", ".NET MAUI", "XAML"],
-        recursos: [
-          { nombre: "Documentación oficial de .NET MAUI", url: "https://learn.microsoft.com/es-es/dotnet/maui/" }
-        ],
-        evidencias: [
-          { titulo: "Práctica 9 Net Maui", url: "https://github.com/" }
-        ]
+        recursos: [{ nombre: "Documentación oficial .NET MAUI", url: "https://learn.microsoft.com/" }],
+        evidencias: [{ titulo: "Práctica 9 Net Maui", url: "https://github.com/" }]
       },
       {
         id: "mod-arcides-3",
+        docente: "Prof. Arcides Canales",
         titulo: "Modulo 3 Conversación de ingles sobre mantenimiento de sistemas informáticos",
-        docente: "Arcides Canales",
-        resumen: "Integración de metodologías ágiles de desarrollo de software como Scrum y prácticas avanzadas de bases de datos conectadas con IA.",
-        instrumentos: ["Guía de prácticas Scrum", "Rúbrica de base de datos CRUD-IA"],
-        programas: ["Visual Studio Code", "Visual Studio", "Gestor de bases de datos"],
-        herramientas: ["Scrum Framework", "Bases de datos relacionales", "Asistentes de IA para código"],
-        recursos: [
-          { nombre: "Scrum Guide oficial", url: "https://scrumguides.org/" }
-        ],
-        evidencias: [
-          { titulo: "Practica 10 Scrum", url: "https://github.com/" },
-          { titulo: "Practica 11 Base de datos CRUD-IA", url: "https://github.com/" }
-        ]
+        resumen: "Implementación de metodologías ágiles Scrum y bases de datos conectadas con asistencia de IA.",
+        instrumentos: ["Guía Scrum", "Rúbrica CRUD-IA"],
+        programas: ["VS Code", "Visual Studio"],
+        herramientas: ["Scrum Framework", "Bases de datos relacionales"],
+        recursos: [{ nombre: "Scrum Guide oficial", url: "https://scrumguides.org/" }],
+        evidencias: [{ titulo: "Practica 11 Base de datos CRUD-IA", url: "https://github.com/" }]
       },
       {
         id: "mod-arcides-4",
+        docente: "Prof. Arcides Canales",
         titulo: "Modulo 4 Puesta en marcha de la empresa en asociatividad cooperativa",
-        docente: "Arcides Canales",
-        resumen: "Gestión y desarrollo de proyectos empresariales avanzados, integración de hardware con Arduino, pasarela e-commerce con PrestaShop y aplicaciones en WinForms, ASPX y .NET MAUI.",
-        instrumentos: ["Rúbrica de proyecto final de PrestaShop", "Evaluación de prototipo Arduino", "Rúbrica de proyectos .NET MAUI y Winform"],
-        programas: ["XAMPP / Servidor local", "Visual Studio", "Arduino IDE"],
-        herramientas: ["PrestaShop", "Arduino", "C# / WinForms / ASPX", ".NET MAUI"],
-        recursos: [
-          { nombre: "Documentación oficial de PrestaShop", url: "https://devdocs.prestashop-project.org/" },
-          { nombre: "Arduino Reference", url: "https://www.arduino.cc/reference/es/" }
-        ],
-        evidencias: [
-          { titulo: "Proyecto PrestaShop Individual", url: "https://github.com/" },
-          { titulo: "Proyecto Final .NET MAUI", url: "https://github.com/" }
-        ]
+        resumen: "Gestión empresarial, tiendas en línea con PrestaShop, prototipos con Arduino y aplicaciones WinForms y .NET MAUI.",
+        instrumentos: ["Rúbrica PrestaShop", "Evaluación Arduino"],
+        programas: ["XAMPP", "Visual Studio", "Arduino IDE"],
+        herramientas: ["PrestaShop", "Arduino", "WinForms", ".NET MAUI"],
+        recursos: [{ nombre: "PrestaShop DevDocs", url: "https://devdocs.prestashop-project.org/" }],
+        evidencias: [{ titulo: "Proyecto PrestaShop Individual", url: "https://github.com/" }]
       }
     ];
 
     function cargarModulos() {
-      const contenedor = document.getElementById("contenedor-modulos");
-      if (!contenedor) return;
-      contenedor.innerHTML = "";
+      const gridJavier = document.getElementById("grid-javier");
+      const gridArcides = document.getElementById("grid-arcides");
+      
+      if (!gridJavier || !gridArcides) return;
+
+      gridJavier.innerHTML = "";
+      gridArcides.innerHTML = "";
 
       modulosData.forEach(modulo => {
         const card = document.createElement("article");
@@ -283,7 +393,12 @@
           </div>
           <button onclick="verFicha('${modulo.id}')" class="btn-sec">Ver Ficha Completa</button>
         `;
-        contenedor.appendChild(card);
+
+        if (modulo.docente === "Prof. Javier") {
+          gridJavier.appendChild(card);
+        } else {
+          gridArcides.appendChild(card);
+        }
       });
     }
 
@@ -293,28 +408,28 @@
 
       const modalBody = document.getElementById("modal-body");
       modalBody.innerHTML = `
-        <h2 style="font-family: var(--font-title); color: var(--primary-cyan); font-size:18px; margin-bottom: 6px;">${modulo.titulo}</h2>
-        <p style="font-size:14px; margin-bottom: 12px;"><b>Docente:</b> ${modulo.docente}</p>
+        <h2 style="font-family: var(--font-title); color: var(--primary-cyan); font-size:17px; margin-bottom: 6px;">${modulo.titulo}</h2>
+        <p style="font-size:14px; margin-bottom: 10px;"><b>Docente:</b> ${modulo.docente}</p>
         <hr style="border: 0; border-top: 1px solid var(--border-color); margin: 12px 0;">
-        <p style="margin-bottom: 12px; font-size:14.5px;">${modulo.resumen}</p>
+        <p style="margin-bottom: 12px; font-size:14px; color: var(--text-main);">${modulo.resumen}</p>
 
-        <h4 style="color: var(--accent-magenta); font-size:14px; margin-top: 10px;">Instrumentos</h4>
-        <p style="font-size:14px; color:var(--text-muted);">${modulo.instrumentos.join(", ")}</p>
+        <h4 style="color: var(--accent-magenta); font-size:13px; margin-top: 8px;">Instrumentos</h4>
+        <p style="font-size:13.5px; color:var(--text-muted);">${modulo.instrumentos.join(", ")}</p>
 
-        <h4 style="color: var(--accent-magenta); font-size:14px; margin-top: 10px;">Programas</h4>
-        <p style="font-size:14px; color:var(--text-muted);">${modulo.programas.join(", ")}</p>
+        <h4 style="color: var(--accent-magenta); font-size:13px; margin-top: 8px;">Programas</h4>
+        <p style="font-size:13.5px; color:var(--text-muted);">${modulo.programas.join(", ")}</p>
 
-        <h4 style="color: var(--accent-magenta); font-size:14px; margin-top: 10px;">Herramientas</h4>
-        <p style="font-size:14px; color:var(--text-muted);">${modulo.herramientas.join(", ")}</p>
+        <h4 style="color: var(--accent-magenta); font-size:13px; margin-top: 8px;">Herramientas</h4>
+        <p style="font-size:13.5px; color:var(--text-muted);">${modulo.herramientas.join(", ")}</p>
 
-        <h4 style="color: var(--accent-magenta); font-size:14px; margin-top: 10px;">Recursos</h4>
-        <ul style="padding-left: 20px; font-size:14px; color:var(--text-muted);">
-          ${modulo.recursos.map(recurso => `<li><a href="${recurso.url}" target="_blank" rel="noopener noreferrer">${recurso.nombre}</a></li>`).join("")}
+        <h4 style="color: var(--accent-magenta); font-size:13px; margin-top: 8px;">Recursos</h4>
+        <ul style="padding-left:18px; font-size:13.5px;">
+          ${modulo.recursos.map(r => `<li><a href="${r.url}" target="_blank" style="color:var(--primary-cyan);">${r.nombre}</a></li>`).join('')}
         </ul>
 
-        <h4 style="color: var(--accent-magenta); font-size:14px; margin-top: 10px;">Evidencias</h4>
-        <ul style="padding-left: 20px; font-size:14px; color:var(--text-muted);">
-          ${modulo.evidencias.map(evidencia => `<li><a href="${evidencia.url}" target="_blank" rel="noopener noreferrer">${evidencia.titulo}</a></li>`).join("")}
+        <h4 style="color: var(--accent-magenta); font-size:13px; margin-top: 8px;">Evidencias</h4>
+        <ul style="padding-left:18px; font-size:13.5px;">
+          ${modulo.evidencias.map(e => `<li><a href="${e.url}" target="_blank" style="color:var(--primary-cyan);">${e.titulo}</a></li>`).join('')}
         </ul>
       `;
 
@@ -325,7 +440,7 @@
       document.getElementById("modal-ficha").close();
     }
 
-    cargarModulos();
+    document.addEventListener("DOMContentLoaded", cargarModulos);
   </script>
 </body>
 </html>
