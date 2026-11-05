@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Portal de Repaso - 3DS B (v0.4 Pro)</title>
+  <title>Portal de Repaso - 3DS B (v0.4 Pro Slider Manual)</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Rajdhani:wght@600;700&family=Syne:wght@700;800&family=Exo+2:wght@400;600&display=swap" rel="stylesheet">
@@ -214,15 +214,26 @@
       letter-spacing: 1px;
     }
 
-    /* Grilla Fija Responsiva */
-    .modulos-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
+    /* CARRUSEL / SLIDER HORIZONTAL MANUAL */
+    .modulos-slider {
+      display: flex;
       gap: 24px;
+      overflow-x: auto;
+      padding: 10px 5px 20px 5px;
+      scroll-snap-type: x mandatory;
+      scroll-behavior: smooth;
+      scrollbar-width: thin;
+      scrollbar-color: var(--primary-cyan) var(--border-color);
     }
 
-    /* Tarjetas de Módulos */
+    .modulos-slider::-webkit-scrollbar { height: 8px; }
+    .modulos-slider::-webkit-scrollbar-track { background: var(--input-bg); border-radius: 4px; }
+    .modulos-slider::-webkit-scrollbar-thumb { background: var(--primary-cyan); border-radius: 4px; }
+
+    /* TARJETAS CORREDISAS */
     .proy {
+      flex: 0 0 330px;
+      scroll-snap-align: start;
       background: var(--card-bg);
       border: 1px solid rgba(6, 182, 212, 0.25);
       border-left: 5px solid var(--primary-cyan);
@@ -387,7 +398,7 @@
   <header class="hero">
     <div class="hero-content">
       <h1>Portal Académico Interactivo</h1>
-      <p class="hero-subtitle">Módulos técnicos con tipografía dinámica, buscador y quiz integrados.</p>
+      <p class="hero-subtitle">Módulos técnicos con tarjetas deslizantes manuales, buscador y quiz.</p>
     </div>
     <div class="filter-container">
       <input type="text" id="buscador" class="search-input" placeholder="🔍 Buscar módulo, herramienta o profesor..." onkeyup="filtrarModulos()">
@@ -400,7 +411,7 @@
         <span class="profesor-badge">Docente</span>
         <h2>Prof. Javier</h2>
       </div>
-      <div id="grid-javier" class="modulos-grid"></div>
+      <div id="slider-javier" class="modulos-slider"></div>
     </section>
 
     <section class="profesor-section">
@@ -408,7 +419,7 @@
         <span class="profesor-badge" style="background: linear-gradient(135deg, var(--primary-cyan), var(--accent-purple)); color:#030712;">Docente</span>
         <h2>Prof. Arcides Canales</h2>
       </div>
-      <div id="grid-arcides" class="modulos-grid"></div>
+      <div id="slider-arcides" class="modulos-slider"></div>
     </section>
   </main>
 
@@ -623,13 +634,13 @@
     ];
 
     function cargarModulos(filtro = "") {
-      const gridJavier = document.getElementById("grid-javier");
-      const gridArcides = document.getElementById("grid-arcides");
+      const sliderJavier = document.getElementById("slider-javier");
+      const sliderArcides = document.getElementById("slider-arcides");
       
-      if (!gridJavier || !gridArcides) return;
+      if (!sliderJavier || !sliderArcides) return;
 
-      gridJavier.innerHTML = "";
-      gridArcides.innerHTML = "";
+      sliderJavier.innerHTML = "";
+      sliderArcides.innerHTML = "";
 
       const textoFiltro = filtro.toLowerCase();
 
@@ -661,9 +672,9 @@
         `;
 
         if (modulo.docente === "Prof. Javier") {
-          gridJavier.appendChild(card);
+          sliderJavier.appendChild(card);
         } else {
-          gridArcides.appendChild(card);
+          sliderArcides.appendChild(card);
         }
       });
     }
