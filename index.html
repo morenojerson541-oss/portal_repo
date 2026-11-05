@@ -33,7 +33,7 @@
       --input-bg: #f1f5f9;
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; transition: background 0.3s, color 0.3s; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
       background-color: var(--bg-color);
@@ -47,7 +47,6 @@
       top: 0;
       z-index: 10;
       background: var(--panel-bg);
-      backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--border-color);
       padding: 14px 24px;
     }
@@ -111,10 +110,9 @@
 
     .hero-subtitle { color: var(--text-muted); font-size: 15px; margin-bottom: 20px; }
 
-    /* Buscador y Filtros */
     .filter-container {
       max-width: 600px;
-      margin: 0 auto 30px;
+      margin: 0 auto;
       padding: 0 20px;
     }
 
@@ -128,11 +126,11 @@
       font-size: 15px;
       outline: none;
     }
-    .search-input:focus { border-color: var(--primary-cyan); box-shadow: 0 0 10px rgba(34, 211, 238, 0.2); }
+    .search-input:focus { border-color: var(--primary-cyan); }
 
     .main-container {
       max-width: 1200px;
-      margin: 20px auto;
+      margin: 30px auto;
       padding: 0 20px;
     }
 
@@ -142,7 +140,6 @@
       border: 1px solid var(--border-color);
       border-radius: 16px;
       padding: 25px;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
     }
 
     .profesor-header {
@@ -184,7 +181,6 @@
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      position: relative;
       transition: transform 0.2s, border-color 0.2s;
     }
 
@@ -246,7 +242,6 @@
       padding: 30px;
       max-width: 600px;
       width: 90%;
-      box-shadow: 0 10px 40px rgba(0,0,0,0.5);
     }
     .modal::backdrop { background: rgba(0, 0, 0, 0.7); backdrop-filter: blur(4px); }
     .modal-content { position: relative; }
@@ -262,30 +257,6 @@
       cursor: pointer;
     }
     .btn-close:hover { color: var(--accent-magenta); }
-
-    /* Estilos Quiz Interactivo */
-    .quiz-box {
-      margin-top: 15px;
-      padding: 12px;
-      background: var(--bg-color);
-      border: 1px solid var(--border-color);
-      border-radius: 10px;
-    }
-    .quiz-opcion {
-      display: block;
-      width: 100%;
-      padding: 8px 12px;
-      margin: 6px 0;
-      background: var(--input-bg);
-      border: 1px solid var(--border-color);
-      color: var(--text-main);
-      border-radius: 6px;
-      cursor: pointer;
-      text-align: left;
-      font-size: 13px;
-    }
-    .quiz-opcion:hover { border-color: var(--primary-cyan); }
-    .feedback { font-size: 13px; margin-top: 8px; font-weight: 600; }
   </style>
 </head>
 <body>
@@ -303,16 +274,14 @@
   <header class="hero">
     <div class="hero-content">
       <h1>Portal Académico Interactivo</h1>
-      <p class="hero-subtitle">Gestión de módulos con buscador, progreso guardado, quiz y modo claro/oscuro.</p>
+      <p class="hero-subtitle">Gestión de módulos con buscador, progreso guardado y modo claro/oscuro.</p>
     </div>
-    
     <div class="filter-container">
-      <input type="text" id="buscador" class="search-input" placeholder="🔍 Buscar módulo, herramienta o profesor..." onkeyup="filtrarModulos()">
+      <input type="text" id="buscador" class="search-input" placeholder="🔍 Buscar módulo o herramienta..." onkeyup="filtrarModulos()">
     </div>
   </header>
 
   <main class="main-container">
-    
     <section class="profesor-section">
       <div class="profesor-header">
         <span class="profesor-badge">Docente</span>
@@ -328,7 +297,6 @@
       </div>
       <div id="grid-arcides" class="modulos-grid"></div>
     </section>
-
   </main>
 
   <dialog id="modal-ficha" class="modal">
@@ -349,13 +317,7 @@
         programas: ["Plataforma Educativa"],
         herramientas: ["Portafolio digital"],
         recursos: [{ nombre: "Generalidades", url: "https://classroom.google.com/" }],
-        evidencias: [{ titulo: "Creación de equipo", url: "https://github.com/" }],
-        quiz: {
-          pregunta: "¿Cuál es el propósito del portafolio en este módulo?",
-          opciones: ["Organizar evidencias y actividades", "Jugar en línea", "Diseñar bases de datos"],
-          correcta: 0,
-          explicacion: "¡Correcto! El portafolio sirve para organizar y recopilar tus evidencias académicas."
-        }
+        evidencias: [{ titulo: "Creación de equipo", url: "https://github.com/" }]
       },
       {
         id: "mod-javier-2",
@@ -366,13 +328,7 @@
         programas: ["Visual Studio"],
         herramientas: ["Dashboards", "Bitácoras"],
         recursos: [{ nombre: "Docs Microsoft", url: "https://learn.microsoft.com/" }],
-        evidencias: [{ titulo: "Monitoreo y Registro", url: "https://github.com/" }],
-        quiz: {
-          pregunta: "¿Qué herramienta se destaca para visualizar métricas operativas?",
-          opciones: ["Dashboard", "Calculadora simple", "Bloc de notas"],
-          correcta: 0,
-          explicacion: "¡Exacto! Los dashboards permiten visualizar datos y métricas en tiempo real."
-        }
+        evidencias: [{ titulo: "Monitoreo y Registro", url: "https://github.com/" }]
       },
       {
         id: "mod-javier-3",
@@ -383,13 +339,7 @@
         programas: ["SQL Server", "Power BI"],
         herramientas: ["SQL"],
         recursos: [{ nombre: "Power BI Docs", url: "https://learn.microsoft.com/" }],
-        evidencias: [{ titulo: "Actividad Power BI", url: "https://github.com/" }],
-        quiz: {
-          pregunta: "¿Qué lenguaje se utiliza principalmente para consultar bases de datos relacionales?",
-          opciones: ["SQL", "HTML", "CSS"],
-          correcta: 0,
-          explicacion: "¡Muy bien! SQL es el lenguaje estándar para consultas relacionales."
-        }
+        evidencias: [{ titulo: "Actividad Power BI", url: "https://github.com/" }]
       },
       {
         id: "mod-javier-4",
@@ -400,13 +350,7 @@
         programas: ["VS Code"],
         herramientas: ["Python"],
         recursos: [{ nombre: "Python Docs", url: "https://www.python.org/" }],
-        evidencias: [{ titulo: "Guía Python Individual", url: "https://github.com/" }],
-        quiz: {
-          pregunta: "¿Qué lenguaje se utiliza en las guías individuales de este módulo?",
-          opciones: ["Python", "Java", "C++"],
-          correcta: 0,
-          explicacion: "¡Correcto! Se trabaja fuertemente con scripts y automatización en Python."
-        }
+        evidencias: [{ titulo: "Guía Python Individual", url: "https://github.com/" }]
       },
       {
         id: "mod-javier-8",
@@ -417,13 +361,7 @@
         programas: ["Visual Studio", "GitHub"],
         herramientas: ["Git", "C#"],
         recursos: [{ nombre: "Guía de proyectos", url: "https://github.com/" }],
-        evidencias: [{ titulo: "Avance 1 Proyecto", url: "https://github.com/" }],
-        quiz: {
-          pregunta: "¿Qué sistema de control de versiones se emplea para los proyectos?",
-          opciones: ["Git / GitHub", "Excel", "Paint"],
-          correcta: 0,
-          explicacion: "¡Exacto! Git y GitHub son esenciales para la colaboración y respaldo."
-        }
+        evidencias: [{ titulo: "Avance 1 Proyecto", url: "https://github.com/" }]
       },
       {
         id: "mod-arcides-1",
@@ -434,13 +372,7 @@
         programas: ["Visual Studio", "SQL Server"],
         herramientas: ["C#", "ASP.NET"],
         recursos: [{ nombre: "C# Learn", url: "https://learn.microsoft.com/" }],
-        evidencias: [{ titulo: "Práctica 02 POO", url: "https://github.com/" }],
-        quiz: {
-          pregunta: "¿Qué pilar de POO permite heredar características de otra clase?",
-          opciones: ["Herencia", "Bucle", "Variable"],
-          correcta: 0,
-          explicacion: "¡Correcto! La herencia reutiliza código entre clases."
-        }
+        evidencias: [{ titulo: "Práctica 02 POO", url: "https://github.com/" }]
       },
       {
         id: "mod-arcides-2",
@@ -451,13 +383,7 @@
         programas: ["Visual Studio"],
         herramientas: [".NET MAUI", "XAML"],
         recursos: [{ nombre: "MAUI Docs", url: "https://learn.microsoft.com/" }],
-        evidencias: [{ titulo: "Práctica 9 Net Maui", url: "https://github.com/" }],
-        quiz: {
-          pregunta: "¿Qué framework se utiliza para desarrollo multiplataforma en C#?",
-          opciones: [".NET MAUI", "Django", "Spring"],
-          correcta: 0,
-          explicacion: "¡Excelente! .NET MAUI permite crear apps móviles y de escritorio."
-        }
+        evidencias: [{ titulo: "Práctica 9 Net Maui", url: "https://github.com/" }]
       },
       {
         id: "mod-arcides-3",
@@ -468,13 +394,7 @@
         programas: ["VS Code"],
         herramientas: ["Scrum"],
         recursos: [{ nombre: "Scrum Guide", url: "https://scrumguides.org/" }],
-        evidencias: [{ titulo: "Práctica Scrum", url: "https://github.com/" }],
-        quiz: {
-          pregunta: "¿Cómo se llama el evento diario de sincronización en Scrum?",
-          opciones: ["Daily Standup", "Sprint Final", "Retiro"],
-          correcta: 0,
-          explicacion: "¡Correcto! El Daily Standup mantiene al equipo alineado todos los días."
-        }
+        evidencias: [{ titulo: "Práctica Scrum", url: "https://github.com/" }]
       },
       {
         id: "mod-arcides-4",
@@ -485,13 +405,7 @@
         programas: ["XAMPP", "Arduino IDE"],
         herramientas: ["PrestaShop", "Arduino"],
         recursos: [{ nombre: "PrestaShop Docs", url: "https://devdocs.prestashop-project.org/" }],
-        evidencias: [{ titulo: "Proyecto PrestaShop", url: "https://github.com/" }],
-        quiz: {
-          pregunta: "¿Qué plataforma open-source se utilizó para comercio electrónico?",
-          opciones: ["PrestaShop", "Word", "Photoshop"],
-          correcta: 0,
-          explicacion: "¡Exacto! PrestaShop es una robusta solución de e-commerce."
-        }
+        evidencias: [{ titulo: "Proyecto PrestaShop", url: "https://github.com/" }]
       }
     ];
 
@@ -507,7 +421,6 @@
       const textoFiltro = filtro.toLowerCase();
 
       modulosData.forEach(modulo => {
-        // Filtrado en tiempo real
         const coincide = modulo.titulo.toLowerCase().includes(textoFiltro) ||
                          modulo.docente.toLowerCase().includes(textoFiltro) ||
                          modulo.resumen.toLowerCase().includes(textoFiltro) ||
@@ -515,7 +428,6 @@
 
         if (!coincide) return;
 
-        // Recuperar progreso guardado en LocalStorage
         const guardado = localStorage.getItem(modulo.id) === "true";
 
         const card = document.createElement("article");
@@ -528,7 +440,7 @@
           </div>
           <div class="card-footer">
             <input type="checkbox" class="checkbox-progreso" ${guardado ? "checked" : ""} onchange="guardarProgreso('${modulo.id}', this.checked)" title="Marcar como repasado">
-            <button onclick="verFicha('${modulo.id}')" class="btn-sec">Ver Ficha & Quiz</button>
+            <button onclick="verFicha('${modulo.id}')" class="btn-sec">Ver Ficha Completa</button>
           </div>
         `;
 
@@ -567,31 +479,9 @@
         <ul style="padding-left:18px; font-size:13px;">
           ${modulo.evidencias.map(e => `<li><a href="${e.url}" target="_blank" style="color:var(--primary-cyan);">${e.titulo}</a></li>`).join('')}
         </ul>
-
-        <div class="quiz-box">
-          <h4 style="color: var(--primary-cyan); font-size:13px; margin-bottom: 6px;">🧠 Quiz Interactivo</h4>
-          <p style="font-size:13px; font-weight:600; margin-bottom: 8px;">${modulo.quiz.pregunta}</p>
-          <div id="quiz-opciones-${modulo.id}">
-            ${modulo.quiz.opciones.map((op, idx) => `
-              <button class="quiz-opcion" onclick="verificarRespuesta('${modulo.id}', ${idx}, ${modulo.quiz.correcta}, '${modulo.quiz.explicacion}')">${op}</button>
-            `).join('')}
-          </div>
-          <div id="quiz-feedback-${modulo.id}" class="feedback"></div>
-        </div>
       `;
 
       document.getElementById("modal-ficha").showModal();
-    }
-
-    function verificarRespuesta(id, seleccionada, correcta, explicacion) {
-      const feedbackDiv = document.getElementById(`quiz-feedback-${id}`);
-      if (seleccionada === correcta) {
-        feedbackDiv.style.color = "#22d3ee";
-        feedbackDiv.innerHTML = `✅ ${explicacion}`;
-      } else {
-        feedbackDiv.style.color = "#f046d2";
-        feedbackDiv.innerHTML = `❌ Respuesta incorrecta. ¡Inténtalo de nuevo!`;
-      }
     }
 
     function cerrarFicha() {
@@ -606,7 +496,6 @@
       localStorage.setItem("theme", nuevo);
     }
 
-    // Cargar preferencia de tema guardada al iniciar
     document.addEventListener("DOMContentLoaded", () => {
       const temaGuardado = localStorage.getItem("theme") || "dark";
       document.documentElement.setAttribute("data-theme", temaGuardado);
