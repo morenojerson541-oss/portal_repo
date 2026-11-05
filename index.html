@@ -12,7 +12,7 @@
     :root[data-theme="dark"] {
       --bg-color: #030712;
       --panel-bg: rgba(8, 15, 30, 0.85);
-      --card-bg: rgba(12, 22, 45, 0.9);
+      --card-bg: linear-gradient(145deg, rgba(13, 24, 48, 0.95), rgba(7, 13, 28, 0.95));
       --border-color: #1e293b;
       --accent-neon: #eab308;
       --primary-cyan: #06b6d4;
@@ -25,7 +25,7 @@
     :root[data-theme="light"] {
       --bg-color: #f1f5f9;
       --panel-bg: rgba(255, 255, 255, 0.9);
-      --card-bg: rgba(248, 250, 252, 0.95);
+      --card-bg: linear-gradient(145deg, #ffffff, #f8fafc);
       --border-color: #cbd5e1;
       --accent-neon: #ca8a04;
       --primary-cyan: #0284c7;
@@ -35,7 +35,7 @@
       --input-bg: #ffffff;
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; transition: background 0.3s, color 0.3s; }
+    * { box-sizing: border-box; margin: 0; padding: 0; transition: background 0.3s, color 0.3s, transform 0.25s, box-shadow 0.25s, border-color 0.25s; }
 
     body {
       background-color: var(--bg-color);
@@ -47,7 +47,6 @@
       overflow-x: hidden;
     }
 
-    /* Canvas de fondo con efecto Cyber Squares */
     #bg-canvas {
       position: fixed;
       top: 0;
@@ -200,85 +199,121 @@
       color: var(--text-main);
     }
 
-    /* Rediseño de Posición en Grilla Flex/Grid Responsiva */
     .modulos-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
-      gap: 20px;
+      gap: 24px;
     }
 
+    /* REDISEÑO DE TARJETAS (CAJAS MÓDULOS) */
     .proy {
       background: var(--card-bg);
-      border: 1px solid var(--border-color);
-      border-radius: 12px;
-      padding: 22px;
+      border: 1px solid rgba(6, 182, 212, 0.25);
+      border-left: 4px solid var(--primary-cyan);
+      border-radius: 14px;
+      padding: 24px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+    }
+
+    .proy::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 70px;
+      height: 70px;
+      background: radial-gradient(circle at top right, rgba(6, 182, 212, 0.15), transparent 70%);
+      pointer-events: none;
     }
 
     .proy:hover {
-      transform: translateY(-4px);
+      transform: translateY(-6px) scale(1.01);
       border-color: var(--accent-neon);
-      box-shadow: 0 6px 20px rgba(234, 179, 8, 0.15);
+      border-left-color: var(--accent-neon);
+      box-shadow: 0 10px 30px rgba(234, 179, 8, 0.25), 0 0 15px rgba(6, 182, 212, 0.2);
     }
 
     .proy h3 {
       font-family: 'Orbitron', sans-serif;
-      font-size: 14.5px;
-      color: var(--text-main);
-      margin-bottom: 8px;
+      font-size: 15px;
+      color: #ffffff;
+      margin-bottom: 10px;
+      line-height: 1.4;
+      letter-spacing: 0.5px;
     }
 
     .proy .lema {
+      display: inline-block;
+      background: rgba(6, 182, 212, 0.12);
+      border: 1px solid rgba(6, 182, 212, 0.3);
       color: var(--primary-cyan);
-      font-size: 12.5px;
-      margin-bottom: 8px;
-      font-weight: 600;
+      font-size: 11.5px;
+      padding: 3px 10px;
+      border-radius: 6px;
+      margin-bottom: 12px;
+      font-weight: 700;
     }
 
-    .proy p { color: var(--text-muted); font-size: 13.5px; margin-bottom: 15px; }
+    .proy p { 
+      color: var(--text-muted); 
+      font-size: 13.5px; 
+      margin-bottom: 20px; 
+      line-height: 1.55;
+    }
 
     .card-footer {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 10px;
-      border-top: 1px solid var(--border-color);
-      padding-top: 14px;
+      gap: 12px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      padding-top: 16px;
     }
 
     .progreso-container {
       display: flex;
       align-items: center;
-      gap: 6px;
-      font-size: 12.5px;
-      color: var(--text-muted);
+      gap: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-main);
       cursor: pointer;
+      user-select: none;
     }
 
     .checkbox-progreso {
-      width: 17px;
-      height: 17px;
+      width: 18px;
+      height: 18px;
       accent-color: var(--accent-neon);
       cursor: pointer;
+      filter: drop-shadow(0 0 4px rgba(234, 179, 8, 0.4));
     }
 
     .btn-sec {
       background: linear-gradient(135deg, var(--primary-cyan), #0284c7);
       color: #030712;
       font-family: 'Orbitron', sans-serif;
-      font-size: 11px;
-      font-weight: 700;
+      font-size: 11.5px;
+      font-weight: 800;
       border: none;
       border-radius: 8px;
-      padding: 9px 14px;
+      padding: 10px 16px;
       cursor: pointer;
       text-align: center;
-      box-shadow: 0 2px 10px rgba(6, 182, 212, 0.2);
+      letter-spacing: 0.5px;
+      box-shadow: 0 4px 14px rgba(6, 182, 212, 0.35);
     }
-    .btn-sec:hover { filter: brightness(1.2); }
+
+    .btn-sec:hover { 
+      filter: brightness(1.2);
+      box-shadow: 0 6px 20px rgba(6, 182, 212, 0.55);
+      transform: translateY(-1px);
+    }
 
     .modal {
       margin: auto;
@@ -309,7 +344,7 @@
 
     .quiz-box {
       margin-top: 15px;
-      padding: 12px;
+      padding: 14px;
       background: var(--card-bg);
       border: 1px solid var(--border-color);
       border-radius: 10px;
@@ -317,7 +352,7 @@
     .quiz-opcion {
       display: block;
       width: 100%;
-      padding: 8px 12px;
+      padding: 9px 14px;
       margin: 6px 0;
       background: var(--input-bg);
       border: 1px solid var(--border-color);
@@ -333,7 +368,6 @@
 </head>
 <body>
 
-  <!-- Canvas dinamico de fondo estilo retro-matrix -->
   <canvas id="bg-canvas"></canvas>
 
   <nav class="navbar">
@@ -349,7 +383,7 @@
   <header class="hero">
     <div class="hero-content">
       <h1>Portal Académico Interactivo</h1>
-      <p class="hero-subtitle">Módulos técnicos con buscador, progreso guardado, quiz y tema oscuro tecnológico.</p>
+      <p class="hero-subtitle">Módulos técnicos con tarjetas interactivas neón, buscador y quiz integrados.</p>
     </div>
     <div class="filter-container">
       <input type="text" id="buscador" class="search-input" placeholder="🔍 Buscar módulo, herramienta o profesor..." onkeyup="filtrarModulos()">
@@ -382,7 +416,6 @@
   </dialog>
 
   <script>
-    // Configuración del canvas interactivo de fondo (Cyber Squares)
     const canvas = document.getElementById('bg-canvas');
     const ctx = canvas.getContext('2d');
     let width, height, squares = [];
@@ -429,7 +462,6 @@
     initCanvas();
     animateCanvas();
 
-    // Módulos Académicos
     const modulosData = [
       {
         id: "mod-javier-0",
@@ -559,7 +591,7 @@
         programas: ["VS Code"],
         herramientas: ["Scrum"],
         recursos: [{ nombre: "Scrum Guide", url: "https://scrumguides.org/" }],
-        evidencias: [{ titulo: "Práctica Scrum", url: "https://github.com/" }],
+        evidencias: [{ titulo: "Practica Scrum", url: "https://github.com/" }],
         quiz: {
           pregunta: "¿Cómo se llama el evento diario de sincronización en Scrum?",
           opciones: ["Daily Standup", "Sprint Final", "Retiro"],
@@ -612,7 +644,7 @@
         card.innerHTML = `
           <div>
             <h3>${modulo.titulo}</h3>
-            <p class="lema"><b>Docente:</b> ${modulo.docente}</p>
+            <span class="lema">Docente: ${modulo.docente}</span>
             <p>${modulo.resumen}</p>
           </div>
           <div class="card-footer">
