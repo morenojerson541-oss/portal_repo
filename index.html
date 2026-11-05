@@ -3,10 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Portal de Repaso - 3DS B (v0.4 Pro Pro)</title>
+  <title>Portal de Repaso - 3DS B (v0.4 Pro Auto-Scroll)</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <!-- Nuevas fuentes tipográficas avanzadas -->
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Rajdhani:wght@600;700&family=Syne:wght@700;800&family=Exo+2:wght@400;600&display=swap" rel="stylesheet">
   
   <style>
@@ -81,7 +80,6 @@
       z-index: 2;
     }
 
-    /* Tipografía exclusiva para la barra de navegación */
     .logo {
       font-family: 'Syne', sans-serif;
       font-weight: 800;
@@ -131,7 +129,6 @@
       background: radial-gradient(circle at top, rgba(192, 132, 252, 0.1), transparent 70%);
     }
 
-    /* Tipografía elegante y llamativa para el Título Principal */
     .hero h1 {
       font-family: 'Syne', sans-serif;
       font-weight: 800;
@@ -207,7 +204,6 @@
       letter-spacing: 1px;
     }
 
-    /* Tipografía llamativa y con color dinámico para los nombres de los profesores */
     .profesor-header h2 {
       font-family: 'Orbitron', sans-serif;
       font-weight: 900;
@@ -218,13 +214,13 @@
       letter-spacing: 1px;
     }
 
-    /* Carrusel Deslizante Horizontal */
+    /* Carrusel Deslizante Horizontal (Auto-scroll con Hover) */
     .modulos-slider {
       display: flex;
       gap: 24px;
       overflow-x: auto;
       padding: 10px 5px 20px 5px;
-      scroll-snap-type: x mandatory;
+      scroll-behavior: smooth;
       scrollbar-width: thin;
       scrollbar-color: var(--primary-cyan) var(--border-color);
     }
@@ -233,10 +229,9 @@
     .modulos-slider::-webkit-scrollbar-track { background: var(--input-bg); border-radius: 4px; }
     .modulos-slider::-webkit-scrollbar-thumb { background: var(--primary-cyan); border-radius: 4px; }
 
-    /* Tarjetas Corredisas con Estilo Único */
+    /* Tarjetas Corredisas */
     .proy {
       flex: 0 0 330px;
-      scroll-snap-align: start;
       background: var(--card-bg);
       border: 1px solid rgba(6, 182, 212, 0.25);
       border-left: 5px solid var(--primary-cyan);
@@ -257,7 +252,6 @@
       box-shadow: 0 12px 35px rgba(234, 179, 8, 0.25), 0 0 15px rgba(6, 182, 212, 0.2);
     }
 
-    /* Tipografía estilizada para los Títulos de los Módulos */
     .proy h3 {
       font-family: 'Rajdhani', sans-serif;
       font-weight: 700;
@@ -402,7 +396,7 @@
   <header class="hero">
     <div class="hero-content">
       <h1>Portal Académico Interactivo</h1>
-      <p class="hero-subtitle">Módulos técnicos con fuentes dinámicas, tarjetas deslizantes, buscador y quiz.</p>
+      <p class="hero-subtitle">Módulos técnicos con auto-desplazamiento al pasar el cursor.</p>
     </div>
     <div class="filter-container">
       <input type="text" id="buscador" class="search-input" placeholder="🔍 Buscar módulo, herramienta o profesor..." onkeyup="filtrarModulos()">
@@ -680,6 +674,31 @@
         } else {
           sliderArcides.appendChild(card);
         }
+      });
+
+      configurarAutoScroll();
+    }
+
+    // Configuración para que se mueva automáticamente al pasar el cursor (Hover)
+    function configurarAutoScroll() {
+      const sliders = document.querySelectorAll('.modulos-slider');
+
+      sliders.forEach(slider => {
+        let intervalo = null;
+
+        slider.addEventListener('mouseenter', () => {
+          intervalo = setInterval(() => {
+            if (slider.scrollLeft + slider.clientWidth >= slider.scrollWidth - 5) {
+              slider.scrollLeft = 0; // Regresa al inicio de forma suave
+            } else {
+              slider.scrollLeft += 1.5; // Velocidad de desplazamiento automático
+            }
+          }, 20);
+        });
+
+        slider.addEventListener('mouseleave', () => {
+          clearInterval(intervalo);
+        });
       });
     }
 
