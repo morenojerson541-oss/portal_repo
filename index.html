@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Portal de Repaso - 3DS B (v0.4 Pro)</title>
+  <title>Portal de Repaso - 3DS B (v0.4 Pro Slider)</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@400;600;700&family=Orbitron:wght@600;800&display=swap" rel="stylesheet">
@@ -35,7 +35,7 @@
       --input-bg: #ffffff;
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; transition: background 0.3s, color 0.3s, transform 0.25s, box-shadow 0.25s, border-color 0.25s; }
+    * { box-sizing: border-box; margin: 0; padding: 0; transition: background 0.3s, color 0.3s, transform 0.25s, box-shadow 0.25s; }
 
     body {
       background-color: var(--bg-color);
@@ -164,7 +164,7 @@
     }
 
     .profesor-section {
-      margin-bottom: 40px;
+      margin-bottom: 45px;
       background: var(--panel-bg);
       border: 1px solid var(--border-color);
       border-radius: 16px;
@@ -199,14 +199,33 @@
       color: var(--text-main);
     }
 
-    .modulos-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
+    /* CONTENEDOR TIPO CARRUSEL / DESLIZABLE HORIZONTAL */
+    .modulos-slider {
+      display: flex;
       gap: 24px;
+      overflow-x: auto;
+      padding: 10px 5px 20px 5px;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: thin;
+      scrollbar-color: var(--primary-cyan) var(--border-color);
     }
 
-    /* REDISEÑO DE TARJETAS (CAJAS MÓDULOS) */
+    .modulos-slider::-webkit-scrollbar {
+      height: 8px;
+    }
+    .modulos-slider::-webkit-scrollbar-track {
+      background: var(--input-bg);
+      border-radius: 4px;
+    }
+    .modulos-slider::-webkit-scrollbar-thumb {
+      background: var(--primary-cyan);
+      border-radius: 4px;
+    }
+
+    /* TARJETAS CORREDISAS */
     .proy {
+      flex: 0 0 330px;
+      scroll-snap-align: start;
       background: var(--card-bg);
       border: 1px solid rgba(6, 182, 212, 0.25);
       border-left: 4px solid var(--primary-cyan);
@@ -232,7 +251,7 @@
     }
 
     .proy:hover {
-      transform: translateY(-6px) scale(1.01);
+      transform: translateY(-6px);
       border-color: var(--accent-neon);
       border-left-color: var(--accent-neon);
       box-shadow: 0 10px 30px rgba(234, 179, 8, 0.25), 0 0 15px rgba(6, 182, 212, 0.2);
@@ -298,11 +317,11 @@
       background: linear-gradient(135deg, var(--primary-cyan), #0284c7);
       color: #030712;
       font-family: 'Orbitron', sans-serif;
-      font-size: 11.5px;
+      font-size: 11px;
       font-weight: 800;
       border: none;
       border-radius: 8px;
-      padding: 10px 16px;
+      padding: 9px 14px;
       cursor: pointer;
       text-align: center;
       letter-spacing: 0.5px;
@@ -383,7 +402,7 @@
   <header class="hero">
     <div class="hero-content">
       <h1>Portal Académico Interactivo</h1>
-      <p class="hero-subtitle">Módulos técnicos con tarjetas interactivas neón, buscador y quiz integrados.</p>
+      <p class="hero-subtitle">Módulos técnicos con tarjetas deslizantes, buscador, progreso y quiz.</p>
     </div>
     <div class="filter-container">
       <input type="text" id="buscador" class="search-input" placeholder="🔍 Buscar módulo, herramienta o profesor..." onkeyup="filtrarModulos()">
@@ -396,7 +415,7 @@
         <span class="profesor-badge">Docente</span>
         <h2>Prof. Javier</h2>
       </div>
-      <div id="grid-javier" class="modulos-grid"></div>
+      <div id="slider-javier" class="modulos-slider"></div>
     </section>
 
     <section class="profesor-section">
@@ -404,7 +423,7 @@
         <span class="profesor-badge" style="background: linear-gradient(135deg, var(--primary-cyan), #0284c7); color:#030712;">Docente</span>
         <h2>Prof. Arcides Canales</h2>
       </div>
-      <div id="grid-arcides" class="modulos-grid"></div>
+      <div id="slider-arcides" class="modulos-slider"></div>
     </section>
   </main>
 
@@ -591,7 +610,7 @@
         programas: ["VS Code"],
         herramientas: ["Scrum"],
         recursos: [{ nombre: "Scrum Guide", url: "https://scrumguides.org/" }],
-        evidencias: [{ titulo: "Practica Scrum", url: "https://github.com/" }],
+        evidencias: [{ titulo: "Práctica Scrum", url: "https://github.com/" }],
         quiz: {
           pregunta: "¿Cómo se llama el evento diario de sincronización en Scrum?",
           opciones: ["Daily Standup", "Sprint Final", "Retiro"],
@@ -619,13 +638,13 @@
     ];
 
     function cargarModulos(filtro = "") {
-      const gridJavier = document.getElementById("grid-javier");
-      const gridArcides = document.getElementById("grid-arcides");
+      const sliderJavier = document.getElementById("slider-javier");
+      const sliderArcides = document.getElementById("slider-arcides");
       
-      if (!gridJavier || !gridArcides) return;
+      if (!sliderJavier || !sliderArcides) return;
 
-      gridJavier.innerHTML = "";
-      gridArcides.innerHTML = "";
+      sliderJavier.innerHTML = "";
+      sliderArcides.innerHTML = "";
 
       const textoFiltro = filtro.toLowerCase();
 
@@ -657,9 +676,9 @@
         `;
 
         if (modulo.docente === "Prof. Javier") {
-          gridJavier.appendChild(card);
+          sliderJavier.appendChild(card);
         } else {
-          gridArcides.appendChild(card);
+          sliderArcides.appendChild(card);
         }
       });
     }
