@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Portal de Repaso - 3DS B (v0.4 Pro Auto-Scroll)</title>
+  <title>Portal de Repaso - 3DS B (v0.4 Pro)</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Rajdhani:wght@600;700&family=Syne:wght@700;800&family=Exo+2:wght@400;600&display=swap" rel="stylesheet">
@@ -214,24 +214,15 @@
       letter-spacing: 1px;
     }
 
-    /* Carrusel Deslizante Horizontal (Auto-scroll con Hover) */
-    .modulos-slider {
-      display: flex;
+    /* Grilla Fija Responsiva */
+    .modulos-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
       gap: 24px;
-      overflow-x: auto;
-      padding: 10px 5px 20px 5px;
-      scroll-behavior: smooth;
-      scrollbar-width: thin;
-      scrollbar-color: var(--primary-cyan) var(--border-color);
     }
 
-    .modulos-slider::-webkit-scrollbar { height: 8px; }
-    .modulos-slider::-webkit-scrollbar-track { background: var(--input-bg); border-radius: 4px; }
-    .modulos-slider::-webkit-scrollbar-thumb { background: var(--primary-cyan); border-radius: 4px; }
-
-    /* Tarjetas Corredisas */
+    /* Tarjetas de Módulos */
     .proy {
-      flex: 0 0 330px;
       background: var(--card-bg);
       border: 1px solid rgba(6, 182, 212, 0.25);
       border-left: 5px solid var(--primary-cyan);
@@ -396,7 +387,7 @@
   <header class="hero">
     <div class="hero-content">
       <h1>Portal Académico Interactivo</h1>
-      <p class="hero-subtitle">Módulos técnicos con auto-desplazamiento al pasar el cursor.</p>
+      <p class="hero-subtitle">Módulos técnicos con tipografía dinámica, buscador y quiz integrados.</p>
     </div>
     <div class="filter-container">
       <input type="text" id="buscador" class="search-input" placeholder="🔍 Buscar módulo, herramienta o profesor..." onkeyup="filtrarModulos()">
@@ -409,7 +400,7 @@
         <span class="profesor-badge">Docente</span>
         <h2>Prof. Javier</h2>
       </div>
-      <div id="slider-javier" class="modulos-slider"></div>
+      <div id="grid-javier" class="modulos-grid"></div>
     </section>
 
     <section class="profesor-section">
@@ -417,7 +408,7 @@
         <span class="profesor-badge" style="background: linear-gradient(135deg, var(--primary-cyan), var(--accent-purple)); color:#030712;">Docente</span>
         <h2>Prof. Arcides Canales</h2>
       </div>
-      <div id="slider-arcides" class="modulos-slider"></div>
+      <div id="grid-arcides" class="modulos-grid"></div>
     </section>
   </main>
 
@@ -632,13 +623,13 @@
     ];
 
     function cargarModulos(filtro = "") {
-      const sliderJavier = document.getElementById("slider-javier");
-      const sliderArcides = document.getElementById("slider-arcides");
+      const gridJavier = document.getElementById("grid-javier");
+      const gridArcides = document.getElementById("grid-arcides");
       
-      if (!sliderJavier || !sliderArcides) return;
+      if (!gridJavier || !gridArcides) return;
 
-      sliderJavier.innerHTML = "";
-      sliderArcides.innerHTML = "";
+      gridJavier.innerHTML = "";
+      gridArcides.innerHTML = "";
 
       const textoFiltro = filtro.toLowerCase();
 
@@ -670,35 +661,10 @@
         `;
 
         if (modulo.docente === "Prof. Javier") {
-          sliderJavier.appendChild(card);
+          gridJavier.appendChild(card);
         } else {
-          sliderArcides.appendChild(card);
+          gridArcides.appendChild(card);
         }
-      });
-
-      configurarAutoScroll();
-    }
-
-    // Configuración para que se mueva automáticamente al pasar el cursor (Hover)
-    function configurarAutoScroll() {
-      const sliders = document.querySelectorAll('.modulos-slider');
-
-      sliders.forEach(slider => {
-        let intervalo = null;
-
-        slider.addEventListener('mouseenter', () => {
-          intervalo = setInterval(() => {
-            if (slider.scrollLeft + slider.clientWidth >= slider.scrollWidth - 5) {
-              slider.scrollLeft = 0; // Regresa al inicio de forma suave
-            } else {
-              slider.scrollLeft += 1.5; // Velocidad de desplazamiento automático
-            }
-          }, 20);
-        });
-
-        slider.addEventListener('mouseleave', () => {
-          clearInterval(intervalo);
-        });
       });
     }
 
